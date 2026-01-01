@@ -27,14 +27,20 @@ mod my_module {
     use super::Command;
 
     // TODO: Complete the function as described above.
-    pub fn transformer(input: (String, Command)) -> String {
-        let (s, cmd) = input;
+    pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
+        let mut result: Vec<String> = Vec::new();
 
-        let result = match cmd {
-            Command::Uppercase => s.to_uppercase(),
-            Command::Trim => s.trim().to_string(),
-            Command::Append(n) => String::from("bar").repeat(n),
-        };
+        for line in input {
+            let (s, cmd) = line;
+
+            let r = match cmd {
+                Command::Uppercase => s.to_uppercase(),
+                Command::Trim => s.trim().to_string(),
+                Command::Append(n) => s + &String::from("bar").repeat(n),
+            };
+
+            result.push(r);
+        }
 
         result
     }
